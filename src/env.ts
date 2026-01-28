@@ -1,23 +1,24 @@
 
-import { createEnv } from "@t3-oss/env-nextjs"; 
-import { z } from "zod";
+ import { createEnv } from "@t3-oss/env-nextjs"
+import * as z from "zod"
 
-export const env=createEnv({
-    server:{
-        BACKEND_URL:z.url(),
-        FRONTENED_URL:z.url(),
-        API_URL:z.url(),
-        AUTH_URL:z.url()
-
-    },
-    client:{
-        NEXT_PUBLIC_TEST:z.string()
-    },
-    runtimeEnv:{
-        BACKEND_URL:process.env.BACKEND_URL,
-        FRONTENED_URL:process.env.FRONTENED_URL,
-        API_URL:process.env.API_URL,
-        AUTH_URL:process.env.AUTH_URL,
-        NEXT_PUBLIC_TEST:process.env.NEXT_PUBLIC_TEST
-    }
+export const env = createEnv({
+  server: {
+    BACKEND_URL: z.string().url(),
+    FRONTEND_URL: z.string().url(),
+    API_URL: z.string().url(),
+    AUTH_URL: z.string().url(),
+  },
+  client: {
+    NEXT_PUBLIC_MEALS: z.string().url(),
+    NEXT_PUBLIC_CATEGORY: z.string().url(),
+  },
+  runtimeEnv: {
+    BACKEND_URL: process.env.BACKEND_URL,
+    FRONTEND_URL: process.env.FRONTEND_URL,
+    API_URL: process.env.API_URL,
+    AUTH_URL: process.env.AUTH_URL,
+    NEXT_PUBLIC_MEALS: process.env.NEXT_PUBLIC_MEALS,
+    NEXT_PUBLIC_CATEGORY: process.env.NEXT_PUBLIC_CATEGORY,
+  },
 })

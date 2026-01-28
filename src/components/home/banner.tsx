@@ -2,10 +2,10 @@
 
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
-import image1 from '../../../public/photo1.jpg'
-import image2 from '../../../public/photo2.jpg'
-import image3 from '../../../public/photo3.jpg'
-import image4 from '../../../public/photo4.jpg'
+import image1 from '../../../public/grilledchicken.jpg'
+import image2 from '../../../public/dessert.jpg'
+import image3 from '../../../public/seafood.jpg'
+import image4 from '../../../public/pizza.jpg'
 import {
   Carousel,
   CarouselContent,

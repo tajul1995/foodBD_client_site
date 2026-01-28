@@ -10,15 +10,16 @@ import image3 from '../../../public/burger.jpg'
 import image4 from '../../../public/pizza.jpg'
 import image5 from '../../../public/seafood.jpg'
 
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
+// import {
+//   Carousel,
+//   CarouselContent,
+//   CarouselItem,
+//   CarouselNext,
+//   CarouselPrevious,
+// } from "@/components/ui/carousel"
 
 import { Card } from "@/components/ui/card"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel"
 
 const popularMenus = [
   {
@@ -57,35 +58,35 @@ const popularMenus = [
     image: image4,
   },
   {
-    id: 1,
+    id: 6,
     name: "Grilled Chicken",
     price: "300 tk",
     rating: 4.8,
     image: image1,
   },
   {
-    id: 2,
+    id: 7,
     name: "Chocolate Dessert",
     price: "350 tk",
     rating: 4.6,
     image: image2,
   },
   {
-    id: 3,
+    id: 8,
     name: "Seafood Platter",
     price: "499 tk",
     rating: 4.9,
     image: image5,
   },
   {
-    id: 4,
+    id: 9,
     name: "Burger Special",
     price: "699 tk",
     rating: 4.7,
     image: image3,
   },
   {
-    id: 5,
+    id: 10,
     name: "Pizza Slice",
     price: "199 tk",
     rating: 4.5,
@@ -127,7 +128,7 @@ export default function PopularMenuSmallSlider() {
 
                 {/* Add to Cart */}
                 <button className="absolute top-2 right-2 z-10 bg-red-500 text-white p-2 rounded-full opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 hover:bg-red-600">
-                  <ShoppingCart size={16} />
+                  <ShoppingCart size={14} />
                 </button>
 
                 {/* Image */}
