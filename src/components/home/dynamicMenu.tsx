@@ -6,6 +6,8 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { env } from "@/env"
 import { MapPin, ShoppingCart, Store } from "lucide-react"
+import Link from "next/link"
+import { Info } from "lucide-react"
 
 
 
@@ -145,8 +147,8 @@ export default function FoodMenuFunctional() {
       <Button
   className="w-full mt-3 flex items-center gap-2 transition-transform hover:scale-[1.02] bg-amber-900"
 >
-  <ShoppingCart className="h-4 w-4 text-3xl text-amber-300  font-bold" />
-  Order Now
+  <Info className="h-4 w-4 text-3xl text-amber-300  font-bold" />
+<Link href={`/menudatiles/${meal.id}`}>  DETAILS</Link>
 </Button>
     </div>
   </div>

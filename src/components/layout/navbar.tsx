@@ -80,10 +80,10 @@ const Navbar = ({
       title: "menu",
       url: "/menu",
     },
-    {
-      title: "Blog",
-      url: "#",
-    },
+    // {
+    //   title: "menudatiles",
+    //   url: "/menudatiles",
+    // },
   ],
   auth = {
     login: { title: "Login", url: "/login" },
