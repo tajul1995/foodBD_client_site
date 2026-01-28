@@ -73,7 +73,7 @@ export default function MealCard({ meal }: { meal: Meal }) {
   className=" mt-3 flex items-center gap-2 transition-transform hover:scale-[1.02] bg-amber-900 w-full"
 >
   <ShoppingCart className="h-4 w-4 text-3xl text-amber-300  font-bold" />
-<Link >  Order Now</Link>
+<Link href={`/cart/${meal.price}`} >  Order Now</Link>
 </Button>
     </div>
   </div>

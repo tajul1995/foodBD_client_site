@@ -4,7 +4,7 @@ import FoodMenuDynamic from "@/components/home/dynamicMenu"
 
 const MenuPage =async () => {
     const {data}= await blogServices.getAllMeals()
-    console.log("menu",data)
+    // console.log("menu",data)
   return (
     <div>
       <FoodMenuDynamic></FoodMenuDynamic>

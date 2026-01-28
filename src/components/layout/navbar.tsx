@@ -80,6 +80,10 @@ const Navbar = ({
       title: "menu",
       url: "/menu",
     },
+    {
+      title: "cart",
+      url: "/cart",
+    }
     // {
     //   title: "menudatiles",
     //   url: "/menudatiles",

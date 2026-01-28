@@ -19,9 +19,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
-import { redirect } from "next/navigation";
+
 import { toast } from "sonner";
 import { z } from "zod";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, "This field is required"),
@@ -30,6 +31,7 @@ const formSchema = z.object({
 });
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
+   const router = useRouter();
   const handleGoogleLogin = async () => {
     const data = authClient.signIn.social({
       provider: "google",
@@ -53,14 +55,17 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
       const toastId = toast.loading("Register user");
       try {
         const { data, error } = await authClient.signUp.email(value);
+        console.log(data)
 
         if (error) {
           toast.error(error.message, { id: toastId });
           return;
         }
-
-        toast.success("User registered Successfully", { id: toastId });
-        redirect('/login')
+        if(data.user){
+           toast.success("User registered Successfully", { id: toastId });
+           router.push("/login");
+        }
+        
       } catch (err) {
         toast.error("Something went wrong, please try again.", { id: toastId });
       }

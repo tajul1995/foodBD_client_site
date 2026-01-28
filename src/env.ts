@@ -12,6 +12,7 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_MEALS: z.string().url(),
     NEXT_PUBLIC_CATEGORY: z.string().url(),
+    NEXT_PUBLIC_ORDER: z.string().url(),
   },
   runtimeEnv: {
     BACKEND_URL: process.env.BACKEND_URL,
@@ -20,5 +21,6 @@ export const env = createEnv({
     AUTH_URL: process.env.AUTH_URL,
     NEXT_PUBLIC_MEALS: process.env.NEXT_PUBLIC_MEALS,
     NEXT_PUBLIC_CATEGORY: process.env.NEXT_PUBLIC_CATEGORY,
+    NEXT_PUBLIC_ORDER: process.env.NEXT_PUBLIC_ORDER,
   },
 })

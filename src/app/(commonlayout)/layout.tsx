@@ -2,6 +2,8 @@ import { Navbar } from "@/components/layout/navbar";
 
 
 
+
+
 const CommonLayout =async ({
   children,
 }: {
@@ -12,6 +14,7 @@ const CommonLayout =async ({
     <div className="max-w-7xl mx-auto p-8">
         <Navbar></Navbar>
       {children}
+       
     </div>
   )
 }
