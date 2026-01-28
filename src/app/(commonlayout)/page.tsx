@@ -1,10 +1,13 @@
+import HeroCarousel from "@/components/home/banner";
+import PopularMenuSmallSlider from "@/components/home/populaeMenu";
 
 
 
 export default function Home() {
   return (
     <div>
-      <h2>this is home</h2>
+      <HeroCarousel></HeroCarousel>
+      <PopularMenuSmallSlider></PopularMenuSmallSlider>
     </div>
   );
 }

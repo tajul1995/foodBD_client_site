@@ -2,6 +2,10 @@
 
 import * as React from "react"
 import Autoplay from "embla-carousel-autoplay"
+import image1 from '../../../public/photo1.jpg'
+import image2 from '../../../public/photo2.jpg'
+import image3 from '../../../public/photo3.jpg'
+import image4 from '../../../public/photo4.jpg'
 import {
   Carousel,
   CarouselContent,
@@ -12,19 +16,24 @@ import Image from "next/image"
 const slides = [
   {
     title: "Delicious Grilled Food",
-    subtitle: "Fresh • Juicy • Hot",
-    image: "/images/grilled.jpg",
+   subtitle: "Slow-grilled over open flames using traditional techniques to create deep, unforgettable flavors",
+    image: image1,
   },
   {
     title: "Sweet Desserts",
-    subtitle: "Taste the Happiness",
-    image: "/images/sweets.jpg",
+   subtitle: "A delightful collection of desserts designed to satisfy your sweet cravings and lift your mood",
+    image: image2,
   },
   {
     title: "Fresh Seafood",
-    subtitle: "From Sea to Plate",
-    image: "/images/seafood.jpg",
+   subtitle: "Freshly sourced seafood cooked with care to preserve natural taste, texture, and nutrition",
+    image: image3,
   },
+  {
+    title: "Fresh Seafood",
+  subtitle: "Expertly crafted recipes that reflect our chef’s creativity, dedication, and passion for food",
+    image: image4,
+  }
 ]
 
 export default function HeroCarousel() {
@@ -37,10 +46,10 @@ export default function HeroCarousel() {
       plugins={[plugin.current]}
       className="w-full"
     >
-      <CarouselContent>
+      <CarouselContent className="md:mt-5">
         {slides.map((slide, index) => (
           <CarouselItem key={index}>
-            <div className="relative h-[70vh] w-full">
+            <div className="relative h-[70vh] w-full rounded-2xl">
               <Image
                 src={slide.image}
                 alt={slide.title}
@@ -49,13 +58,13 @@ export default function HeroCarousel() {
                 className="object-cover"
               />
 
-              {/* Overlay */}
+              
               <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <div className="text-center text-white px-4">
-                  <h1 className="text-3xl md:text-5xl font-bold mb-3">
+                <div className="text-center px-4">
+                  <h1 className="text-3xl md:text-5xl font-extrabold mb-3 italic text-amber-300">
                     {slide.title}
                   </h1>
-                  <p className="text-lg md:text-xl">
+                  <p className="text-3xl font-bold italic md:text-xl max-w-3xl mx-auto leading-relaxed text-amber-100/90">
                     {slide.subtitle}
                   </p>
                 </div>
