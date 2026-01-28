@@ -21,7 +21,7 @@ import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { z } from "zod";
+import * as z from "zod";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
