@@ -1,5 +1,9 @@
+import ProductForm from "@/components/dashboard/menuForm";
+
 export default function UsersPage() {
   return (
-    <h2>add menu</h2>
+    <div className="">
+      <ProductForm ></ProductForm>
+    </div>
   )
 }
