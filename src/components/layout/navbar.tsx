@@ -88,6 +88,9 @@ const Navbar = ({
     {
       title: "cart",
       url: "/cart",
+    },{
+      title: "dashboard",
+      url: "/dashboard",
     }
     // {
     //   title: "menudatiles",
