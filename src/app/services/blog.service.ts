@@ -4,6 +4,7 @@ import { env } from "@/env"
     title:string
  }
 const  NEXT_PUBLIC_MEALS=env.NEXT_PUBLIC_MEALS
+const  NEXT_PUBLIC_ORDER=env.NEXT_PUBLIC_ORDER
 export const blogServices={
     getAllMeals:async(params?:GetMealsParams)=>{
         try {
@@ -28,6 +29,16 @@ export const blogServices={
             const res= await fetch(`${NEXT_PUBLIC_MEALS}/${id}`)
             const data= await res.json()
             console.log(data)
+            return {data:data,error:null}
+        } catch (error) {
+            return {data:null,message:error}
+        }
+    },
+    getallOrders:async()=>{
+        try {
+            const res= await fetch(NEXT_PUBLIC_ORDER,{cache:"no-store"})
+            const data= await res.json()
+            
             return {data:data,error:null}
         } catch (error) {
             return {data:null,message:error}

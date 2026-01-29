@@ -1,28 +1,60 @@
+
+
+import OrderStatusDropdown from "@/components/dashboard/dropDownMenu";
+
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
+type Order={
+  id:string
+  customerId:string,
+  address:string,
+  status:string,
+  totalAmount:number
 
 
+}
 
-export default function OrderPage() {
+
+export default async function OrderPage() {
+ const res = await fetch("http://localhost:5000/api/orders", {
+    credentials: "include",
+    cache: "no-store", // IMPORTANT for auth/session data
+  })
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch orders")
+  }
+
+  const orders = await res.json()
+
+  console.log(orders.data)
+
   return (
-    <div>
-      <Table>
+    <div >
+      <Table className="p-4">
   <TableCaption>A list of your recent invoices.</TableCaption>
   <TableHeader>
-    <TableRow>
-      <TableHead className="w-[100px]">Invoice</TableHead>
-      <TableHead>Status</TableHead>
-      <TableHead>Method</TableHead>
+    <TableRow className="text-xl font-bold italic border-2 border-amber-800">
+      <TableHead className="w-[200px]">customerId</TableHead>
+      <TableHead>address</TableHead>
+      <TableHead>status</TableHead>
+      <TableHead>updateStatus</TableHead>
       <TableHead className="text-right">Amount</TableHead>
     </TableRow>
   </TableHeader>
-  <TableBody>
-    <TableRow>
-      <TableCell className="font-medium">INV001</TableCell>
-      <TableCell>Paid</TableCell>
-      <TableCell>Credit Card</TableCell>
-      <TableCell className="text-right">$250.00</TableCell>
-    </TableRow>
+  <TableBody className="border-2 border-amber-800">
+    {
+      orders.data.map((order:Order)=><TableRow key={order.id} className="border-2 border-amber-800">
+      <TableCell className="font-medium ">{order.customerId}</TableCell>
+      <TableCell >{order.address}</TableCell>
+      <TableCell> {order.status}</TableCell>
+      <TableCell> <OrderStatusDropdown   orderId={order.id}   currentStatus={order.status}></OrderStatusDropdown></TableCell>
+     
+      <TableCell className="text-right">{order.totalAmount}</TableCell>
+    </TableRow>)
+    }
+
+    
   </TableBody>
 </Table>
     </div>

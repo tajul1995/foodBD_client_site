@@ -11,7 +11,7 @@ export default async function Layout({ admin,provider }: { admin: React.ReactNod
     <div className="w-full ">
       <SidebarProvider>
       <AppSidebar user={userInfo} />
-      <main className="w-4xl mx-auto mt-12">
+      <main className="w-5xl mx-auto mt-12">
         <SidebarTrigger />
         {admin}
         {provider}
