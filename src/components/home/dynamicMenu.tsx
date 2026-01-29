@@ -121,7 +121,7 @@ export default function FoodMenuFunctional() {
             
               <div className="relative h-48 w-full">
                 <Image
-                  src={meal.image}
+                  src={meal?.image||""}
                   alt={meal.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"

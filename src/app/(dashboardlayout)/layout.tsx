@@ -8,13 +8,23 @@ export default async function Layout({ admin,provider }: { admin: React.ReactNod
    console.log(data)
    const userInfo=data.user
   return (
-    <SidebarProvider>
-      <AppSidebar user={userInfo}/>
-      <main>
+    <div className="w-full ">
+      <SidebarProvider>
+      <AppSidebar user={userInfo} />
+      <main className="w-4xl mx-auto mt-12">
         <SidebarTrigger />
         {admin}
         {provider}
       </main>
     </SidebarProvider>
+    </div>
+    // <SidebarProvider>
+    //   <AppSidebar user={userInfo}/>
+    //   <main>
+    //     <SidebarTrigger />
+    //     {admin}
+    //     {provider}
+    //   </main>
+    // </SidebarProvider>
   )
 }
