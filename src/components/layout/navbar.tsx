@@ -29,6 +29,7 @@ import {
 import Link from "next/link";
 
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 interface MenuItem {
   title: string;
@@ -60,6 +61,10 @@ interface Navbar1Props {
     provider: {
       title: string;
       url: string;
+    };
+    signout: {
+      title: string;
+      
     };
   };
 }
@@ -93,12 +98,26 @@ const Navbar = ({
     login: { title: "Login", url: "/login" },
     signup: { title: "Register", url: "/register" },
     provider: { title: "provider", url: "/provider" },
+    signout: { title: "signout" },
   },
   className,
 }: Navbar1Props) => {
    const session = authClient.useSession()
     // console.log(session.data?.user.id)
   // const userId =session.data?.user.id
+
+const router=useRouter()
+const handleTosignOut=async()=>{
+  const res=await authClient.signOut({
+  fetchOptions: {
+    onSuccess: () => {
+      router.push("/"); // redirect to login page
+    },
+  },
+})
+console.log(res)
+}
+
   return (
     <section className={cn("py-4", className)}>
       <div className="container">
@@ -125,15 +144,40 @@ const Navbar = ({
             </div>
           </div>
           <div className="flex gap-2">
+            {
+                  session.data?.user? 
+                  <>
+                    <Button  onClick={()=>handleTosignOut()}>
+                      signout
+                    </Button>
+                    <Button asChild size="sm">
+              <Link href={auth.provider.url}>{auth.provider.title}</Link>
+            </Button>
+                  </>
+                  
+                  :<>
+                      <Button asChild variant="outline">
+
+                      <Link href={auth.login.url}>{auth.login.title}</Link>
+                    </Button>
+                    <Button asChild>
+                      <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                    </Button>
+                    </>
+                }
+            {/* <Button onClick={()=>handleTosignOut()}>
+              signout
+            </Button>
             <Button asChild variant="outline" size="sm">
               <Link href={auth.login.url}>{auth.login.title}</Link>
             </Button>
             <Button asChild size="sm">
               <Link href={auth.signup.url}>{auth.signup.title}</Link>
             </Button>
+            
             {session.data?.user&&<Button asChild size="sm">
               <Link href={auth.provider.url}>{auth.provider.title}</Link>
-            </Button>}
+            </Button>} */}
             
           </div>
         </nav>
@@ -177,15 +221,41 @@ const Navbar = ({
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
+                {
+                  session.data?.user? 
+                  <>
+                    <Button  onClick={()=>handleTosignOut()}>
+                      signout
+                    </Button>
+                    <Button asChild size="sm">
+              <Link href={auth.provider.url}>{auth.provider.title}</Link>
+            </Button>
+                  </>
+                  
+                  :<>
+                      <Button asChild variant="outline">
+
                       <Link href={auth.login.url}>{auth.login.title}</Link>
                     </Button>
                     <Button asChild>
                       <Link href={auth.signup.url}>{auth.signup.title}</Link>
                     </Button>
+                    </>
+                }
+
+
+                   
+                    {/* <Button asChild variant="outline">
+
+                      <Link href={auth.login.url}>{auth.login.title}</Link>
+                    </Button>
+                    <Button asChild>
+                      <Link href={auth.signup.url}>{auth.signup.title}</Link>
+                    </Button>
+                    
                     {session.data?.user&&<Button asChild size="sm">
               <Link href={auth.provider.url}>{auth.provider.title}</Link>
-            </Button>}
+            </Button>} */}
                   </div>
                 </div>
               </SheetContent>
