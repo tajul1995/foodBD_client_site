@@ -1,4 +1,7 @@
 import { blogServices } from "@/app/services/blog.service"
+import SimpleRatingComment from "@/components/home/foodReviewSection"
+
+
 import MealCard from "@/components/home/menuCard"
 
 
@@ -15,6 +18,10 @@ const SingleMenu =async ({
   return (
     <div>
       <MealCard meal={meal}></MealCard>
+      <SimpleRatingComment mealId={id}></SimpleRatingComment>
+     
+     
+      
     </div>
   )
 }

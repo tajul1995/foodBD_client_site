@@ -56,7 +56,7 @@ export default async function OrderPage() {
       <TableCell> {order.status}</TableCell>
       <TableCell> <OrderDropdown  orderId={order.id}   currentstatus={order.status }></OrderDropdown></TableCell>
      
-      <TableCell className="text-right">{order.totalAmount}</TableCell>
+      <TableCell className="text-right">tk{order.totalAmount}</TableCell>
     </TableRow>)
     }
 

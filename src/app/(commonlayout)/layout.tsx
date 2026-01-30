@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/footer";
 import { Navbar } from "@/components/layout/navbar";
 
 
@@ -14,7 +15,7 @@ const CommonLayout =async ({
     <div className="max-w-7xl mx-auto p-8">
         <Navbar></Navbar>
       {children}
-       
+       <Footer></Footer>
     </div>
   )
 }

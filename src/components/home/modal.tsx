@@ -7,12 +7,14 @@ import { Button } from "../ui/button"
 import { toast } from "sonner"
 import { env } from "@/env"
 import { authClient } from "@/lib/auth-client"
+import { Meal } from "./menuCard"
+import { useRouter } from "next/navigation"
 
-type OrderPrice = {
-  price: number
-}
 
-export default function OrderConfirmForm({ price }: OrderPrice) {
+
+
+export default function OrderConfirmForm({meal}:{meal:Meal}) {
+  const router= useRouter()
   const [address, setAddress] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -38,7 +40,8 @@ export default function OrderConfirmForm({ price }: OrderPrice) {
         credentials: "include",
         body: JSON.stringify({
           address,
-          totalAmount:price,
+          totalAmount:meal.price,
+          providerId:meal.providerId
         //  customerId: session?.user?.id,
         }),
       })
@@ -49,11 +52,15 @@ export default function OrderConfirmForm({ price }: OrderPrice) {
 
       const data = await res.json()
       console.log("Order response:", data)
-
-      setAddress("")
+      if(data.success===true){
+        setAddress("")
       toast.success("Order Confirmed!", {
         description: "Payment successful. Your food is being prepared!",
       })
+      router.push('/menu')
+      }
+
+      
     } catch (error) {
       console.error(error)
       toast.error("Something went wrong. Please try again.")
@@ -80,7 +87,7 @@ export default function OrderConfirmForm({ price }: OrderPrice) {
 
         {/* Price */}
         <p className="text-2xl font-bold text-amber-700">
-          Total Amount: <span className="text-amber-600">tk {price}</span>
+          Total Amount: <span className="text-amber-600">tk {meal.price}</span>
         </p>
 
         {/* Payment Button */}

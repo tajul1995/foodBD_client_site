@@ -1,11 +1,15 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { userServices } from "../services/user.services";
+import { redirect } from "next/navigation";
 
 
-export default async function Layout({ admin,provider }: { admin: React.ReactNode,provider: React.ReactNode }) {
+export default async function Layout({ admin,provider,customer }: { admin: React.ReactNode,provider: React.ReactNode,customer: React.ReactNode }) {
    const {data}= await userServices.getSession()
    console.log(data)
+   if(!data.user){
+    redirect('/login')
+   }
     const userInfo=data.user
   //  const userInfo="ADMIN"
   return (
@@ -16,6 +20,7 @@ export default async function Layout({ admin,provider }: { admin: React.ReactNod
         <SidebarTrigger />
         {admin}
         {provider}
+        {customer}
       </main>
     </SidebarProvider>
     </div>

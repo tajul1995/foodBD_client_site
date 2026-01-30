@@ -9,14 +9,14 @@ import { MapPin, ShoppingCart, Store } from "lucide-react"
 import Link from "next/link"
 import { Info } from "lucide-react"
 
-
+import image1 from '../../../public/grilledchicken.jpg'
 
 interface Category {
   id: string
   name: string
 }
 
-interface Meal {
+export  interface Meal {
   id: string
   title: string
   description: string
@@ -83,8 +83,10 @@ export default function FoodMenuFunctional() {
   }, [selectedCategoryId])
 
   return (
-    <section className="py-12 px-4 max-w-7xl mx-auto">
-      {/* Category Buttons */}
+    
+   
+     <section className="py-12 px-4 max-w-7xl  mx-auto">
+      
       <div className="flex flex-wrap gap-3 mb-8 justify-center">
         {loadingCategories ? (
           <p>Loading categories...</p>
@@ -103,7 +105,7 @@ export default function FoodMenuFunctional() {
         )}
       </div>
 
-      {/* Meals Grid */}
+      
       {loadingMeals ? (
         <p className="text-center text-muted-foreground">Loading meals...</p>
       ) : meals.length === 0 ? (
@@ -121,7 +123,7 @@ export default function FoodMenuFunctional() {
             
               <div className="relative h-48 w-full">
                 <Image
-                  src={meal?.image||""}
+                  src={meal?.image||image1}
                   alt={meal.title}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -152,12 +154,16 @@ export default function FoodMenuFunctional() {
 </Button>
     </div>
   </div>
-                
+               
               </div>
             </Card>
           ))}
+         
         </div>
       )}
+      
     </section>
+   
+   
   )
 }

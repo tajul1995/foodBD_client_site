@@ -1,6 +1,6 @@
 
 
-import OrderStatusDropdown from "@/components/dashboard/dropDownMenu";
+import OrderStatusDropdown, { Role } from "@/components/dashboard/dropDownMenu";
 
 import { Table, TableBody,  TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 // import { OrderStatus } from "@/types/order.type";
@@ -61,7 +61,7 @@ export default async function UserPage() {
       <TableCell >{order.status}</TableCell>
       <TableCell >{order.role}</TableCell>
      
-      <TableCell> <OrderStatusDropdown   userId={order.id}   currentRole={order.role }></OrderStatusDropdown></TableCell>
+      <TableCell> <OrderStatusDropdown   userId={order.id}   currentRole={order.role as Role}></OrderStatusDropdown></TableCell>
      
       
     </TableRow>)
