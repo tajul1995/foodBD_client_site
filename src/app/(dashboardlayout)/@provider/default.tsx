@@ -1,11 +1,7 @@
 
 
 const ProviderDefault = () => {
-  return (
-    <div>
-      <h2>provider deafa</h2>
-    </div>
-  )
+  return null
 }
 
 export default ProviderDefault

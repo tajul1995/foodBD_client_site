@@ -1,6 +1,6 @@
 export const adminRoutes=[
-    { title: "ADD-MENU", url: "/dashboard/menu" },
-    { title: "views-orders", url: "/dashboard/order" },
-    { title: "StatusUpdate", url: "/dashboard/update" },
+    { title: "alluser", url: "/admin-dashboard/users" },
+    { title: "ovserve-orders", url: "/admin-dashboard/ovserve" },
+    { title: "updateContent", url: "/admin-dashboard/update" },
     
   ]
