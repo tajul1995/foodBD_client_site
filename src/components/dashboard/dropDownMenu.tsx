@@ -1,5 +1,7 @@
 "use client"
 
+
+
 import { useState } from "react"
 
 enum OrderStatus {
@@ -11,8 +13,28 @@ enum OrderStatus {
 }
 
 export default function OrderStatusDropdown({orderId,currentStatus}:{orderId:string,currentStatus:OrderStatus}) {
+  
   const [status, setStatus] = useState<OrderStatus>(currentStatus)
-  console.log("order",status)
+   const [loading, setLoading] = useState(false)
+  console.log(orderId,status)
+  const updateStatus = async (newStatus:OrderStatus) => {
+    setLoading(true)
+    setStatus(newStatus)
+  // await updateOrderStatus(orderId, newStatus)
+  const res=  await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ status:newStatus }),
+    })
+    
+const data= await res.json()
+console.log(data)
+
+    setLoading(false)
+  }
 
   return (
     <div className=" p-2  rounded-xl shadow-md">
@@ -22,7 +44,7 @@ export default function OrderStatusDropdown({orderId,currentStatus}:{orderId:str
 
       <select
         value={status}
-        onChange={(e) => setStatus(e.target.value as OrderStatus)}
+        onChange={(e) => updateStatus(e.target.value as OrderStatus)}
         className=" px-4 py-2 rounded-lg bg-amber-600 text-black font-bold
                    focus:outline-none focus:ring-2 focus:ring-blue-400"
       >

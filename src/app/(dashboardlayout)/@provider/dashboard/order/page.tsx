@@ -3,12 +3,13 @@
 import OrderStatusDropdown from "@/components/dashboard/dropDownMenu";
 
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { OrderStatus } from "@/types/order.type";
 
 type Order={
   id:string
   customerId:string,
   address:string,
-  status:string,
+  status:OrderStatus,
   totalAmount:number
 
 
@@ -18,8 +19,10 @@ type Order={
 export default async function OrderPage() {
  const res = await fetch("http://localhost:5000/api/orders", {
     credentials: "include",
-    cache: "no-store", // IMPORTANT for auth/session data
-  })
+    cache: "no-store"
+    
+  } )
+  
 
   if (!res.ok) {
     throw new Error("Failed to fetch orders")
@@ -48,7 +51,7 @@ export default async function OrderPage() {
       <TableCell className="font-medium ">{order.customerId}</TableCell>
       <TableCell >{order.address}</TableCell>
       <TableCell> {order.status}</TableCell>
-      <TableCell> <OrderStatusDropdown   orderId={order.id}   currentStatus={order.status}></OrderStatusDropdown></TableCell>
+      <TableCell> <OrderStatusDropdown   orderId={order.id}   currentStatus={order.status }></OrderStatusDropdown></TableCell>
      
       <TableCell className="text-right">{order.totalAmount}</TableCell>
     </TableRow>)
