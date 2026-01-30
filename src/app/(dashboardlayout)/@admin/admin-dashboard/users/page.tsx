@@ -23,7 +23,10 @@ type Users={
 export default async function UserPage() {
  const res = await fetch("http://localhost:5000/api/users", {
     credentials: "include",
-    cache: "no-store"
+    cache: "no-store",
+    next: {
+    tags: ["users"],
+  }
     
   } )
   
@@ -42,7 +45,7 @@ export default async function UserPage() {
  
   <TableHeader>
     <TableRow className="text-xl font-bold italic border-2 border-amber-800">
-      <TableHead className="w-[200px]">name</TableHead>
+      <TableHead className="">name</TableHead>
       <TableHead>email</TableHead>
       <TableHead>status</TableHead>
       <TableHead>role</TableHead>
@@ -58,7 +61,7 @@ export default async function UserPage() {
       <TableCell >{order.status}</TableCell>
       <TableCell >{order.role}</TableCell>
      
-      <TableCell> <OrderStatusDropdown   orderId={order.id}   currentStatus={order.role }></OrderStatusDropdown></TableCell>
+      <TableCell> <OrderStatusDropdown   userId={order.id}   currentRole={order.role }></OrderStatusDropdown></TableCell>
      
       
     </TableRow>)

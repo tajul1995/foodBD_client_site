@@ -1,11 +1,8 @@
-import React from 'react'
+import { redirect } from 'next/navigation'
 
-const updatepage = () => {
-  return (
-    <div>
-      <h2>update here</h2>
-    </div>
-  )
+
+const DashboardPage = () => {
+  return redirect('/dashboard/menu')
 }
 
-export default updatepage
+export default DashboardPage

@@ -1,5 +1,6 @@
 "use server"
 
+import { Role } from "@/components/dashboard/dropDownMenu"
 import { revalidateTag, updateTag } from "next/cache"
 
 export async function createFood(formData: FormData) {
@@ -32,4 +33,28 @@ export async function updateOrderStatus(
   })
 
   updateTag("orders")
+}
+
+
+
+
+export async function updateUserRole(
+  userId: string,
+  role: Role
+) {
+  const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ role }),
+    cache: "no-store",
+  })
+
+  if (!res.ok) {
+    throw new Error("Failed to update role")
+  }
+
+  // 🔥 THIS is why reload is not needed
+  revalidateTag("users")
 }

@@ -2,39 +2,62 @@
 
 
 
+import { updateUserRole } from "@/actions/food"
 import { useState } from "react"
 
-enum OrderStatus {
-  PLACED = "PLACED",
-  PREPARING = "PREPARING",
-  READY = "READY",
-  DELIVERED = "DELIVERED",
-  CANCELLED = "CANCELLED",
+export enum Role {
+  CUSTOMER="CUSTOMER",
+  PROVIDER="PROVIDER",
+
+  ADMIN="ADMIN"
 }
 
-export default function OrderStatusDropdown({orderId,currentStatus}:{orderId:string,currentStatus:OrderStatus}) {
-  
-  const [status, setStatus] = useState<OrderStatus>(currentStatus)
-   const [loading, setLoading] = useState(false)
-  console.log(orderId,status)
-  const updateStatus = async (newStatus:OrderStatus) => {
-    setLoading(true)
-    setStatus(newStatus)
-  // await updateOrderStatus(orderId, newStatus)
-  const res=  await fetch(`http://localhost:5000/api/orders/${orderId}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-      body: JSON.stringify({ status:newStatus }),
-    })
-    
-const data= await res.json()
-console.log(data)
+export default function OrderStatusDropdown({userId,currentRole}:{userId:string,currentRole:Role}) {
+   const [role, setRole] = useState(currentRole)
+  const [loading, setLoading] = useState(false)
+  // const [status, setStatus] = useState<Role>(currentStatus)
+  //  const [loading, setLoading] = useState(false)
+  // console.log(orderId,status)
 
-    setLoading(false)
+const onChange = async (newRole: Role) => {
+    setRole(newRole)          // ✅ instant change
+    setLoading(true)
+
+    try {
+      await updateUserRole(userId, newRole)
+    } catch {
+      setRole(currentRole)    // rollback if error
+    } finally {
+      setLoading(false)
+    }
   }
+
+
+
+
+
+
+
+
+  // const updateStatus = async (newStatus:Role) => {
+  //   setLoading(true)
+    
+  // await updateOrderStatus(orderId, newStatus)
+//   const res=  await fetch(`http://localhost:5000/api/users/${orderId}`, {
+//       method: "PATCH",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       credentials: "include",
+//       body: JSON.stringify({ role:newStatus }),
+//       cache:"no-store"
+//     })
+    
+// const data= await res.json()
+// console.log(data)
+// setStatus(newStatus)
+//     setLoading(false)
+//   }
 
   return (
     <div className=" p-2  rounded-xl shadow-md">
@@ -43,12 +66,12 @@ console.log(data)
       </label> */}
 
       <select
-        value={status}
-        onChange={(e) => updateStatus(e.target.value as OrderStatus)}
+        value={role}
+        onChange={(e) => onChange(e.target.value as Role)}
         className=" px-4 py-2 rounded-lg bg-amber-600 text-black font-bold
                    focus:outline-none focus:ring-2 focus:ring-blue-400"
       >
-        {Object.values(OrderStatus).map((st) => (
+        {Object.values(Role).map((st) => (
           <option key={st} value={st}>
             {st}
           </option>
@@ -56,7 +79,7 @@ console.log(data)
       </select>
 
       <p className="mt-3 text-white font-semibold text-sm">
-        Current status: <span className="font-bold">{status}</span>
+        Current status: <span className="font-bold">{role}</span>
       </p>
     </div>
   )
