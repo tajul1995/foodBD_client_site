@@ -1,7 +1,7 @@
 
 
-import OrderStatusDropdown from "@/components/dashboard/dropDownMenu";
 
+import OrderDropdown from "@/components/dashboard/providerDropDownMenu";
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { OrderStatus } from "@/types/order.type";
 
@@ -19,7 +19,10 @@ type Order={
 export default async function OrderPage() {
  const res = await fetch("http://localhost:5000/api/orders", {
     credentials: "include",
-    cache: "no-store"
+    cache: "no-store",
+    next: {
+    tags: ["users"],
+  }
     
   } )
   
@@ -35,10 +38,10 @@ export default async function OrderPage() {
   return (
     <div >
       <Table className="p-4">
-  <TableCaption>A list of your recent invoices.</TableCaption>
+  
   <TableHeader>
     <TableRow className="text-xl font-bold italic border-2 border-amber-800">
-      <TableHead className="w-[200px]">customerId</TableHead>
+      <TableHead className="">customerId</TableHead>
       <TableHead>address</TableHead>
       <TableHead>status</TableHead>
       <TableHead>updateStatus</TableHead>
@@ -51,7 +54,7 @@ export default async function OrderPage() {
       <TableCell className="font-medium ">{order.customerId}</TableCell>
       <TableCell >{order.address}</TableCell>
       <TableCell> {order.status}</TableCell>
-      <TableCell> <OrderStatusDropdown   orderId={order.id}   currentStatus={order.status }></OrderStatusDropdown></TableCell>
+      <TableCell> <OrderDropdown  orderId={order.id}   currentstatus={order.status }></OrderDropdown></TableCell>
      
       <TableCell className="text-right">{order.totalAmount}</TableCell>
     </TableRow>)

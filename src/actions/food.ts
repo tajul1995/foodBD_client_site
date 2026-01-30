@@ -1,6 +1,7 @@
 "use server"
 
 import { Role } from "@/components/dashboard/dropDownMenu"
+import { OrderStatus } from "@/types/order.type"
 import { revalidateTag, updateTag } from "next/cache"
 
 export async function createFood(formData: FormData) {
@@ -21,19 +22,19 @@ export async function createFood(formData: FormData) {
   return { success: true }
 }
 
-export async function updateOrderStatus(
-  orderId: string,
-  status: string
-) {
-  await fetch(`http://localhost:5000/api/orders/${orderId}`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    credentials: "include",
-    body: JSON.stringify({ status }),
-  })
+// export async function updateOrderStatus(
+//   orderId: string,
+//   status: string
+// ) {
+//   await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+//     method: "PATCH",
+//     headers: { "Content-Type": "application/json" },
+//     credentials: "include",
+//     body: JSON.stringify({ status }),
+//   })
 
-  updateTag("orders")
-}
+//   updateTag("orders")
+// }
 
 
 
@@ -57,4 +58,24 @@ export async function updateUserRole(
 
   // 🔥 THIS is why reload is not needed
   revalidateTag("users")
+}
+export async function updateorderstatus(
+  userId: string,
+  status: OrderStatus
+) {
+  const res = await fetch(`http://localhost:5000/api/orders/${userId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+    cache: "no-store",
+  })
+
+  if (!res.ok) {
+    throw new Error("Failed to update role")
+  }
+
+  // 🔥 THIS is why reload is not needed
+  revalidateTag("orders")
 }
