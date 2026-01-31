@@ -1,5 +1,6 @@
 "use server"
 
+import { userServices } from "@/app/services/user.services"
 import { Role } from "@/components/dashboard/dropDownMenu"
 import { authClient } from "@/lib/auth-client"
 import { OrderStatus } from "@/types/order.type"
@@ -87,7 +88,8 @@ export async function createReviews(
   comment: string,
   mealId: string
 ) {
- 
+ const {data}=await userServices.getSession()
+ const userId=data.user.id
   const res = await fetch("http://localhost:5000/api/reviews", {
     method: "POST",
     headers: {
@@ -96,6 +98,7 @@ export async function createReviews(
     body: JSON.stringify({
       rating,
       comment,
+      userId,
       mealId,
     }),
     cache: "no-store",

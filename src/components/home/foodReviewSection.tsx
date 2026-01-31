@@ -3,109 +3,78 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent } from "@/components/ui/card"
-import { Star } from "lucide-react"
+import { Meal } from "./menuCard"
+
 import { createReviews } from "@/actions/food"
 
-
-type Review = {
-  rating: number
-  comment: string
-}
-
-type Props = {
-  mealId: string
-}
-
-export default function SimpleRatingComment({ mealId }: Props) {
-  const [rating, setRating] = useState(0)
-  const [comment, setComment] = useState("")
-  const [reviews, setReviews] = useState<Review[]>([])
-  const [loading, setLoading] = useState(false)
-console.log(rating,comment,mealId)
-  const handlePost = async () => {
-    if (!comment.trim() || rating === 0) return
-
-    try {
-      setLoading(true)
-       
-
-   const newReview = await createReviews(rating, comment, mealId)
-//        const res = await fetch("http://localhost:5000/api/reviews", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       rating,
-//       comment,
-//       mealId,
-//     }),
-//     cache: "no-store",
-//   })
-// console.log(res)
-
-    //   console.log(newReview)
-      setReviews([{ rating, comment }, ...reviews])
-      setComment("")
-      setRating(0)
-    } catch (error) {
-      console.error(error)
-      alert("Failed to post review")
-    } finally {
-      setLoading(false)
-    }
+ 
+export default function ReviewSection({meal}:{meal:Meal}) {
+  const [rating, setRating] = useState(0)        // Selected rating
+  const [hoverRating, setHoverRating] = useState(0)  // Hover effect
+  const [comment, setComment] = useState("")     // User comment
+// "use server"
+  const handleSubmit =async () => {
+    if (rating === 0) return alert("Please select a rating!")
+    console.log({ rating, comment,meal })
+  const id=meal.id
+   const res= await createReviews(rating,comment,id)
+   console.log(res)
+    alert(`Thanks for your review! Rating: ${rating}`)
+    setRating(0)
+    setHoverRating(0)
+    setComment("")
   }
 
   return (
-    <div className="space-y-4 max-w-xl">
-      <Card>
-        <CardContent className="p-4 space-y-3">
-          {/* Stars */}
-          <div className="flex gap-1">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <Star
-                key={star}
-                onClick={() => setRating(star)}
-                className={`cursor-pointer w-6 h-6 ${
-                  star <= rating
-                    ? "fill-yellow-400 text-yellow-400"
-                    : "text-gray-300"
-                }`}
-              />
-            ))}
-          </div>
+    <section className="w-full py-12  flex justify-center px-4">
+      <div className="w-full max-w-md  rounded-2xl shadow-lg p-6">
+        <h2 className="text-2xl font-bold text-center mb-6">Leave a Review</h2>
 
-          <Textarea
-            placeholder="Write your review..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
+        {/* STAR RATING */}
+        <div className="flex justify-center mb-4">
+          {Array.from({ length: 5 }, (_, i) => {
+            const starNumber = i + 1
+            return (
+              <button
+                key={i}
+                type="button"
+                onClick={() => setRating(starNumber)}
+                onMouseEnter={() => setHoverRating(starNumber)}
+                onMouseLeave={() => setHoverRating(0)}
+                className="text-3xl transition-colors duration-200 focus:outline-none"
+              >
+                <span
+                  className={`${
+                    starNumber <= (hoverRating || rating)
+                      ? "text-yellow-400"
+                      : "text-amber-400"
+                  }`}
+                >
+                  ★
+                </span>
+              </button>
+            )
+          })}
+        </div>
 
-          <Button onClick={handlePost} disabled={loading}>
-            {loading ? "Posting..." : "Post"}
-          </Button>
-        </CardContent>
-      </Card>
+        {/* RATING NUMBER */}
+        <p className="text-center mb-4 font-semibold">
+          {rating > 0 ? `Rating: ${rating} / 5` : "No rating yet"}
+        </p>
 
-      {/* Reviews */}
-      <div className="space-y-2">
-        {reviews.map((item, index) => (
-          <Card key={index}>
-            <CardContent className="p-3 space-y-1">
-              <div className="flex gap-1">
-                {[...Array(item.rating)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="w-4 h-4 fill-yellow-400 text-yellow-400"
-                  />
-                ))}
-              </div>
-              <p className="text-sm">{item.comment}</p>
-            </CardContent>
-          </Card>
-        ))}
+        {/* COMMENT BOX */}
+        <Textarea
+          placeholder="Write your review..."
+          value={comment}
+          onChange={(e) => setComment(e.target.value)}
+          className="resize-none h-24 mb-4"
+        />
+
+        {/* SUBMIT BUTTON */}
+        <Button className="w-full rounded-xl" onClick={handleSubmit}>
+          Submit Review
+        </Button>
       </div>
-    </div>
+    </section>
   )
 }

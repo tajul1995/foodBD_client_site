@@ -1,5 +1,6 @@
 import { blogServices } from "@/app/services/blog.service"
-import SimpleRatingComment from "@/components/home/foodReviewSection"
+import ReviewSection from "@/components/home/foodReviewSection"
+
 
 
 import MealCard from "@/components/home/menuCard"
@@ -12,13 +13,13 @@ const SingleMenu =async ({
 }) => {
   const { id } = await params
   const {data} = await blogServices.getMealById(id)
-//   console.log("single" ,data.data)
+   console.log("single" ,data.data)
   const meal=data.data
 
   return (
     <div>
       <MealCard meal={meal}></MealCard>
-      <SimpleRatingComment mealId={id}></SimpleRatingComment>
+      <ReviewSection meal={meal}></ReviewSection>
      
      
       

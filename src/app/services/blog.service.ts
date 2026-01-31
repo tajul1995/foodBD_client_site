@@ -81,4 +81,45 @@ export const blogServices={
   }
 },
 
+giveReviewByCustomer: async (rating:number,comment:string,id:string) => {
+  try {
+    
+    const { data } = await userServices.getSession()
+    const userId = data.user.id
+    console.log("User ID:", userId)
+
+    const review={
+        rating,
+        comment,
+        userId,
+        mealId:id
+    }
+    const res = await fetch("http://localhost:5000/api/reviews", {
+      method: "POST",           
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(review),
+      cache: "no-store",
+    })
+
+    if (!res.ok) {
+      throw new Error("Failed to fetch orders")
+    }
+
+    const data1 = await res.json()
+    return { data: data1, error: null }
+
+  } catch (error: any) {
+    console.error(error)
+    return { data: null, error: error.message || "Something went wrong" }
+  }
+},
+
+
+
+
+
+
+
 }
