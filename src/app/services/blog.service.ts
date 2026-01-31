@@ -1,4 +1,5 @@
 import { env } from "@/env"
+import { userServices } from "./user.services"
 
  interface GetMealsParams{
     title:string
@@ -44,5 +45,40 @@ export const blogServices={
             return {data:null,message:error}
         }
     },
-    
+    getorderById:async()=>{
+        try {
+            const {data}=await userServices.getSession()
+            console.log(data.user.id)
+            const id=data.user.id
+            const res= await fetch(`http://localhost:5000/api/orders/${id}`,{cache:"no-store"})
+            const data1= await res.json()
+            
+            return {data:data1,error:null}
+        } catch (error) {
+            return {data:null,message:error}
+        }
+    },
+     deleteOrderById: async (id: string) => {
+  try {
+    const res = await fetch(
+      `http://localhost:5000/api/orders/${id}`,
+      {
+        method: "DELETE",
+        cache: "no-store",
+      }
+    )
+
+    if (!res.ok) {
+      const errorData = await res.json()
+      throw new Error(errorData.message || "Failed to delete order")
+    }
+
+    const data = await res.json()
+
+    return { data, error: null }
+  } catch (error: any) {
+    return { data: null, error: error.message }
+  }
+},
+
 }
