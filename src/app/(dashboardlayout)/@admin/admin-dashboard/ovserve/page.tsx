@@ -1,9 +1,69 @@
+import OrderStatusDropdown from '@/components/dashboard/dropDownMenu'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import { OrderStatus } from '@/types/order.type'
 import React from 'react'
+type Orders={
+  id:string
+  customerId:string
+  status:string
+  address:string
+  totalAmount:string
 
-const OvservePage = () => {
+}
+
+
+
+const OvservePage = async() => {
+  const res = await fetch("http://localhost:5000/api/orders", {
+    credentials: "include",
+    cache: "no-store",
+    next: {
+    tags: ["users"],
+  }
+    
+  } )
+  
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch orders")
+  }
+
+  const orders = await res.json()
+
+  console.log(orders.data)
+
   return (
-    <div>
-      <h2>ovserve page</h2>
+    <div >
+      <Table className="p-4">
+ 
+  <TableHeader>
+    <TableRow className="text-xl font-bold italic border-2 border-amber-800">
+      <TableHead className="">customerId</TableHead>
+      <TableHead>status</TableHead>
+      <TableHead>address</TableHead>
+      <TableHead>totalAmount</TableHead>
+      <TableHead>action</TableHead>
+      
+     
+    </TableRow>
+  </TableHeader>
+  <TableBody className="border-2 border-amber-800">
+    {
+      orders.data.map((order:Orders)=><TableRow key={order.id} className="border-2 border-amber-800">
+      <TableCell className="font-medium ">{order.customerId}</TableCell>
+      <TableCell className="font-medium ">{order.status}</TableCell>
+      <TableCell >{order.address}</TableCell>
+      <TableCell >{order.totalAmount}</TableCell>
+     
+     
+     
+      
+    </TableRow>)
+    }
+
+    
+  </TableBody>
+</Table>
     </div>
   )
 }
