@@ -30,6 +30,7 @@ import Link from "next/link";
 
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import photo from '../../../public/photo4.jpg'
 
 interface MenuItem {
   title: string;
@@ -69,27 +70,27 @@ interface Navbar1Props {
   };
 }
 
-
+// "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg"
 
 const Navbar = ({
   logo = {
     url: "https://www.shadcnblocks.com",
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
+    src:"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
     alt: "logo",
-    title: "Shadcnblocks.com",
+    title: "FoodHuB.com",
   },
   menu = [
     { title: "Home", url: "/" },
     
     {
-      title: "menu",
+      title: "MENU",
       url: "/menu",
     },
     {
-      title: "cart",
+      title: "PAYMENT",
       url: "/cart",
     },{
-      title: "dashboard",
+      title: "DASHBOARD",
       url: "/dashboard",
     }
     // {

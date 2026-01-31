@@ -43,9 +43,13 @@ let route:Route[]=[]
   }
   console.log(route)
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader className="px-4 py-3 font-semibold">
-        My App
+    <Sidebar collapsible="icon" >
+      <SidebarHeader className="px-4 py-3 font-bold text-2xl text-amber-700 italic ">
+        
+      
+           food hub
+         
+        
       </SidebarHeader>
 
       <SidebarContent>
@@ -58,7 +62,7 @@ let route:Route[]=[]
                 
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild >
-                      <Link href={item.url}>{item.title}</Link>
+                      <Link href={item.url} className="font-bold italic text-amber-300 ">{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 
