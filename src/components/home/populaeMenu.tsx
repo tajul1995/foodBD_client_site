@@ -120,18 +120,18 @@ export default function PopularMenuSmallSlider() {
             >
               <Card className="group relative overflow-hidden rounded-xl border-none shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl bg-amber-900">
                 
-                {/* Rating Badge */}
+                
                 <div className="absolute top-2 left-2 z-10 flex items-center gap-1 px-2 py-1 rounded-lg text-xs font-semibold">
                   <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
                   {item.rating}
                 </div>
 
-                {/* Add to Cart */}
+                
                 <button className="absolute top-2 right-2 z-10 bg-red-500 text-white p-2 rounded-full opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100 hover:bg-red-600">
                   <ShoppingCart size={14} />
                 </button>
 
-                {/* Image */}
+            
                 <div className="relative h-32 w-full overflow-hidden">
                   <Image
                     src={item.image}
@@ -141,7 +141,7 @@ export default function PopularMenuSmallSlider() {
                   />
                 </div>
 
-                {/* Content */}
+                
                 <div className="p-3 text-center">
                   <h3 className="text-sm font-semibold truncate text-white italic">
                     {item.name}

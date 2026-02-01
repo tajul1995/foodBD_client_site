@@ -1,6 +1,6 @@
 import { blogServices } from "@/app/services/blog.service"
-import { Button } from "@/components/ui/button"
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 type Order={
   id:string
   customerId:string
@@ -14,9 +14,7 @@ type Order={
 const OrderePage =async () => {
     const {data}= await blogServices.getorderById()
     console.log(data.data)
-    const handleToDeleteOrder=async(id:string)=>{
-
-    }
+    
   return (
     <div>
       <Table className="border-2 text-amber-700 p-3">

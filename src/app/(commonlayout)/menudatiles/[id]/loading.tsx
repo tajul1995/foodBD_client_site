@@ -1,9 +1,10 @@
+import { Spinner } from "@/components/ui/spinner"
 
 
 const Loading = () => {
   return (
     <div>
-      <h2>loading.............</h2>
+      <Spinner></Spinner>
     </div>
   )
 }

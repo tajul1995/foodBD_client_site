@@ -2,7 +2,8 @@
 
 
 import OrderDropdown from "@/components/dashboard/providerDropDownMenu";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody,  TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { env } from "@/env";
 import { OrderStatus } from "@/types/order.type";
 
 type Order={
@@ -14,10 +15,10 @@ type Order={
 
 
 }
-
-
+// const BACKEND_URL=env.BACKEND_URL
+const NEXT_PUBLIC_ORDER=env.NEXT_PUBLIC_ORDER
 export default async function OrderPage() {
- const res = await fetch("http://localhost:5000/api/orders", {
+ const res = await fetch(NEXT_PUBLIC_ORDER, {
     credentials: "include",
     cache: "no-store",
     next: {

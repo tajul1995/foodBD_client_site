@@ -24,13 +24,6 @@ export default async function Layout({ admin,provider,customer }: { admin: React
       </main>
     </SidebarProvider>
     </div>
-    // <SidebarProvider>
-    //   <AppSidebar user={userInfo}/>
-    //   <main>
-    //     <SidebarTrigger />
-    //     {admin}
-    //     {provider}
-    //   </main>
-    // </SidebarProvider>
+    
   )
 }

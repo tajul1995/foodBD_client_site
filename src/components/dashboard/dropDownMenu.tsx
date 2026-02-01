@@ -20,13 +20,13 @@ export default function OrderStatusDropdown({userId,currentRole}:{userId:string,
   // console.log(orderId,status)
 
 const onChange = async (newRole: Role) => {
-    setRole(newRole)          // ✅ instant change
+    setRole(newRole)         
     setLoading(true)
 
     try {
       await updateUserRole(userId, newRole)
     } catch {
-      setRole(currentRole)    // rollback if error
+      setRole(currentRole)    
     } finally {
       setLoading(false)
     }

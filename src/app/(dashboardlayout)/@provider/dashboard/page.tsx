@@ -1,7 +1,9 @@
+
 import { redirect } from 'next/navigation'
 
 
-const DashboardPage = () => {
+const DashboardPage =async () => {
+  
   return redirect('/dashboard/menu')
 }
 

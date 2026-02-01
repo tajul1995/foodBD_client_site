@@ -11,17 +11,21 @@ import { Meal } from "./menuCard"
 import { useRouter } from "next/navigation"
 
 
-
-
+ const NEXT_PUBLIC_ORDER=env.NEXT_PUBLIC_ORDER
+// const BACKEDURL=env.BACKEND_URL
 export default function OrderConfirmForm({meal}:{meal:Meal}) {
   const router= useRouter()
   const [address, setAddress] = useState("")
   const [loading, setLoading] = useState(false)
+  
 
   const session = authClient.useSession()
-  console.log("Session:", session)
+  // console.log("modal:", session.data)
+  if(session.data==null){
+      router.push('/login')
+  }
 
-   const NEXT_PUBLIC_ORDER=env.NEXT_PUBLIC_ORDER
+  
 
   const handlePayment = async () => {
     if (!address.trim()) {
@@ -72,7 +76,7 @@ export default function OrderConfirmForm({meal}:{meal:Meal}) {
   return (
     <div className="mt-4">
       <div className="space-y-4 flex flex-col gap-4 md:p-4 lg:p-6">
-        {/* Address */}
+       
         <div className="space-y-1">
           <label className="text-sm font-medium flex items-center gap-2">
             <MapPin className="h-4 w-4" />
@@ -85,12 +89,12 @@ export default function OrderConfirmForm({meal}:{meal:Meal}) {
           />
         </div>
 
-        {/* Price */}
+      
         <p className="text-2xl font-bold text-amber-700">
           Total Amount: <span className="text-amber-600">tk {meal.price}</span>
         </p>
 
-        {/* Payment Button */}
+      
         <Button
           onClick={handlePayment}
           disabled={loading}

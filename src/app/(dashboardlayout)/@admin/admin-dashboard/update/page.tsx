@@ -1,10 +1,12 @@
-import { Button } from "@/components/ui/button"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+ import ReviewsTable from "@/components/home/reviewsTables"
+// import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { env } from "@/env"
 
 
 
 
-type Comments={
+
+ export type Comments={
   id:string
   comment:string
   user:{
@@ -13,62 +15,52 @@ type Comments={
   }
 }
 
+// const BACKEND_URL=env.BACKEND_URL
+const NEXT_PUBLIC_REVIEWS=env.NEXT_PUBLIC_REVIEWS
 const UpdatePage =async () => {
-  const res = await fetch("http://localhost:5000/api/reviews", {
-    credentials: "include",
+  const res = await fetch(NEXT_PUBLIC_REVIEWS, {
+     credentials: "include",
     cache: "no-store",
-    next: {
-    tags: ["users"],
+    // next: {
+    // tags: ["users"],
   }
     
-  } )
+    )
   
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch orders")
-  }
+  // if (!res.ok) {
+  //   throw new Error("Failed to fetch update")
+  // }
 
   const orders = await res.json()
 
-  console.log(orders.data)
+  console.log(orders)
+ 
+
+// const handleToDelete = async (id: string) => {
+//     const res = await fetch(`http://localhost:5000/api/reviews/${id}`, {
+//       method: "DELETE",
+//       credentials: "include",
+//     })
+
+//     if (!res.ok) {
+//       alert("Failed to delete review")
+//       return
+//     }
+
+//     // Refresh server data
+//     router.refresh()
+//   }
+
 
   return (
-    <div >
-      <Table className="p-4">
- 
-  <TableHeader>
-    <TableRow className="text-xl font-bold italic border-2 border-amber-800">
-      <TableHead className="">name</TableHead>
-      <TableHead>comment</TableHead>
-      <TableHead>email</TableHead>
+   
+     <div>
+      <ReviewsTable orders={orders}></ReviewsTable> 
+     </div>
      
-      <TableHead>action</TableHead>
-      
-     
-    </TableRow>
-  </TableHeader>
-  <TableBody className="border-2 border-amber-800">
-    {
-      orders.data.map((order:Comments)=><TableRow key={order.id} className="border-2 border-amber-800">
-      <TableCell className="font-medium ">{order.user.name}</TableCell>
-      <TableCell className="font-medium ">{order.comment}</TableCell>
-      <TableCell >{order.user.email}</TableCell>
-      <TableCell >
-        <Button>DELETE</Button>
-        
-      </TableCell>
-     
-     
-     
-      
-    </TableRow>)
-    }
+  )}
 
-    
-  </TableBody>
-</Table>
-    </div>
-  )
-}
+  
 
 export default UpdatePage

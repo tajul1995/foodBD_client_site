@@ -9,14 +9,14 @@ export default function OrderDropdown({ orderId, currentstatus }:{orderId:string
   const [loading, setLoading] = useState(false)
 console.log(role,currentstatus)
   const onChange = async (newRole:OrderStatus) => {
-    setRole(newRole)          // ✅ instant change
+    setRole(newRole)         
     setLoading(true)
 
     try {
      const res=   await updateorderstatus(orderId, newRole)
     console.log(res)
     } catch {
-      setRole(currentstatus)    // rollback if error
+      setRole(currentstatus)    
     } finally {
       setLoading(false)
     }
@@ -47,8 +47,3 @@ console.log(role,currentstatus)
         </div>
   )
 }
-//  PLACED
-//   PREPARING
-//   READY
-//   DELIVERED
-//   CANCELLED

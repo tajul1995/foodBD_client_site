@@ -6,6 +6,9 @@ import { userServices } from "./user.services"
  }
 const  NEXT_PUBLIC_MEALS=env.NEXT_PUBLIC_MEALS
 const  NEXT_PUBLIC_ORDER=env.NEXT_PUBLIC_ORDER
+const NEXT_PUBLIC_REVIEWS=env.NEXT_PUBLIC_REVIEWS
+const NEXT_PUBLIC_PROVIDER=env.NEXT_PUBLIC_PROVIDER
+// const BACKEND_URL=env.BACKEND_URL
 export const blogServices={
     getAllMeals:async(params?:GetMealsParams)=>{
         try {
@@ -35,6 +38,16 @@ export const blogServices={
             return {data:null,message:error}
         }
     },
+     getproviderById:async(id:string)=>{
+        try {
+            const res= await fetch(`${NEXT_PUBLIC_PROVIDER}/${id}`)
+            const data= await res.json()
+            console.log(data)
+            return {data:data,error:null}
+        } catch (error) {
+            return {data:null,message:error}
+        }
+    },
     getallOrders:async()=>{
         try {
             const res= await fetch(NEXT_PUBLIC_ORDER,{cache:"no-store"})
@@ -50,7 +63,7 @@ export const blogServices={
             const {data}=await userServices.getSession()
             console.log(data.user.id)
             const id=data.user.id
-            const res= await fetch(`http://localhost:5000/api/orders/${id}`,{cache:"no-store"})
+            const res= await fetch(`${NEXT_PUBLIC_ORDER}/${id}`,{cache:"no-store"})
             const data1= await res.json()
             
             return {data:data1,error:null}
@@ -61,7 +74,7 @@ export const blogServices={
      deleteOrderById: async (id: string) => {
   try {
     const res = await fetch(
-      `http://localhost:5000/api/orders/${id}`,
+      `NEXT_PUBLIC_ORDER/${id}`,
       {
         method: "DELETE",
         cache: "no-store",
@@ -94,7 +107,7 @@ giveReviewByCustomer: async (rating:number,comment:string,id:string) => {
         userId,
         mealId:id
     }
-    const res = await fetch("http://localhost:5000/api/reviews", {
+    const res = await fetch(NEXT_PUBLIC_REVIEWS, {
       method: "POST",           
       headers: {
         "Content-Type": "application/json",

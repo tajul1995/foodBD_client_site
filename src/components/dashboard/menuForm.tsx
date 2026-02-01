@@ -1,7 +1,13 @@
 "use client"
 
-import { useState } from "react"
 
+
+import { env } from "@/env"
+import Link from "next/link"
+
+import { useState } from "react"
+// const BACKENdURL=env.BACKEND_URL
+ const NEXT_PUBLIC_MEALS=env.NEXT_PUBLIC_MEALS
 export default function ProductForm() {
   const [formData, setFormData] = useState({
     title: "",
@@ -21,13 +27,18 @@ export default function ProductForm() {
   }
 
   const categories = Object.keys(categoryMap)
+  //  const session=  authClient.useSession()
+  //    console.log("menu",session.data?.user?.id)
+  //    if(session.data?.user?.id){
+  //     const provider=
+  //    }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target
 
-    // Handle price as number
+   
     if (name === "price") {
       const numberValue = Number(value)
       setFormData({
@@ -37,7 +48,6 @@ export default function ProductForm() {
       return
     }
 
-    // Handle categoryId selection
     if (name === "categoryId") {
       setFormData({
         ...formData,
@@ -46,36 +56,59 @@ export default function ProductForm() {
       return
     }
 
-    // Other fields (title, description)
+    
     setFormData({
       ...formData,
       [name]: value,
     })
   }
 
-  const handleSubmit =async (e: React.FormEvent) => {
-    e.preventDefault()
-    console.log(formData)
-    const res= await fetch("http://localhost:5000/api/meals",{
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault()
+
+  try {
+    const res = await fetch(NEXT_PUBLIC_MEALS, {
       method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(formData)
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include", 
+      body: JSON.stringify(formData),
     })
-    const data=await res.json()
-    console.log(data)
-    alert("Form submitted! Check console.")
+
+    if (!res.ok) {
+      const error = await res.text()
+      throw new Error(error || "Failed to create meal")
+    }
+
+    const data = await res.json()
+    console.log("Created meal:", data)
+
+  
+    setFormData({
+      title: "",
+      description: "",
+      price: 0,
+      categoryId: "",
+    })
+  } catch (err) {
+    console.error("Create meal error:", err)
   }
+}
+
+
 
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-amber-700 rounded-xl shadow-lg">
       <h2 className="text-2xl font-bold text-black mb-6 text-center">Add Product</h2>
+      <h2 className="my-2 font-bold text-black">are you new provider/
+
+        <Link href={'/provider'} className="font-extrabold text-emerald-50"> provider</Link>
+      </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4 w-full">
 
-        {/* Title */}
+        
         <div className="flex flex-col">
           <label className="mb-1 font-semibold text-white">Title</label>
           <input
@@ -88,7 +121,7 @@ export default function ProductForm() {
           />
         </div>
 
-        {/* Description */}
+       
         <div className="flex flex-col">
           <label className="mb-1 font-semibold text-white">Description</label>
           <textarea
@@ -100,7 +133,7 @@ export default function ProductForm() {
           />
         </div>
 
-        {/* Price */}
+     
         <div className="flex flex-col">
           <label className="mb-1 font-semibold text-white">Price</label>
           <input
@@ -114,7 +147,7 @@ export default function ProductForm() {
           />
         </div>
 
-        {/* CategoryId */}
+        
         <div className="flex flex-col">
           <label className="mb-1 font-semibold text-white">Category</label>
           <select
@@ -136,7 +169,7 @@ export default function ProductForm() {
           </select>
         </div>
 
-        {/* Submit */}
+       
         <button
           type="submit"
           className="w-full py-2 rounded-lg bg-white/90 text-purple-600 font-bold transition"

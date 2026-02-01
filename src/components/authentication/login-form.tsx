@@ -17,21 +17,24 @@ import {
   FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+// import { env } from "@/env";
+
 import { authClient } from "@/lib/auth-client";
 import { useForm } from "@tanstack/react-form";
+import Link from "next/link";
 
 import { useRouter } from "next/navigation";
 
 import { toast } from "sonner";
 import { z } from "zod";
 // import { useRouter, useSearchParams } from "next/navigation";
-
+// "http://localhost:3000"
 const formSchema = z.object({
   // name: z.string().min(1, "This field is required"),
   password: z.string().min(8, "Minimum length is 8"),
   email: z.email(),
 });
-
+//  const FRONTEND_URL=env.FRONTEND_URL
 export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
    const router = useRouter();
   // const searchParams = useSearchParams();
@@ -83,8 +86,8 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
   return (
     <Card {...props}>
       <CardHeader>
-        <CardTitle>Create an account</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-center font-extrabold italic text-amber-600">Create an account</CardTitle>
+        <CardDescription className="text-center font-bold italic text-amber-600">
           Enter your information below to create your account
         </CardDescription>
       </CardHeader>
@@ -149,6 +152,8 @@ export function LoginForm({ ...props }: React.ComponentProps<typeof Card>) {
         <Button form="login-form" type="submit" className="w-full">
           LOGIN
         </Button>
+        <h2 className="text-amber-500 ">dont have account?<Link href={'/register'} >register</Link></h2>
+        
         <Button
           onClick={() => handleGoogleLogin()}
           variant="outline"

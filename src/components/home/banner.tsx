@@ -31,7 +31,7 @@ const slides = [
   },
   {
     title: "Fresh Seafood",
-  subtitle: "Expertly crafted recipes that reflect our chef’s creativity, dedication, and passion for food",
+  subtitle: "Expertly crafted recipes that reflect our chefs creativity, dedication, and passion for food",
     image: image4,
   }
 ]

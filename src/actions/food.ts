@@ -1,10 +1,15 @@
 "use server"
 
+// import { blogServices } from "@/app/services/blog.service"
 import { userServices } from "@/app/services/user.services"
 import { Role } from "@/components/dashboard/dropDownMenu"
-import { authClient } from "@/lib/auth-client"
+import { env } from "@/env"
+
 import { OrderStatus } from "@/types/order.type"
-import { revalidateTag, updateTag } from "next/cache"
+import { revalidateTag } from "next/cache"
+import { updateTag } from "next/cache"
+
+// import { redirect } from "next/navigation"
 
 export async function createFood(formData: FormData) {
   const title = formData.get("title") as string
@@ -24,28 +29,17 @@ export async function createFood(formData: FormData) {
   return { success: true }
 }
 
-// export async function updateOrderStatus(
-//   orderId: string,
-//   status: string
-// ) {
-//   await fetch(`http://localhost:5000/api/orders/${orderId}`, {
-//     method: "PATCH",
-//     headers: { "Content-Type": "application/json" },
-//     credentials: "include",
-//     body: JSON.stringify({ status }),
-//   })
-
-//   updateTag("orders")
-// }
-
-
-
+//  const BACKEND_URL=env.BACKEND_URL
+ const NEXT_PUBLIC_USERS=env.NEXT_PUBLIC_USERS
+const NEXT_PUBLIC_ORDER=env.NEXT_PUBLIC_ORDER
+const NEXT_PUBLIC_REVIEWS=env.NEXT_PUBLIC_REVIEWS
+// const NEXT_PUBLIC_MEALS=env.NEXT_PUBLIC_MEALS
 
 export async function updateUserRole(
   userId: string,
   role: Role
 ) {
-  const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+  const res = await fetch(`${NEXT_PUBLIC_USERS}/${userId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -58,39 +52,39 @@ export async function updateUserRole(
     throw new Error("Failed to update role")
   }
 
-  // 🔥 THIS is why reload is not needed
-  revalidateTag("users")
+  updateTag("users")
 }
 export async function updateorderstatus(
   userId: string,
   status: OrderStatus
 ) {
-  const res = await fetch(`http://localhost:5000/api/orders/${userId}`, {
+  const res = await fetch(`${NEXT_PUBLIC_ORDER}/${userId}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ status }),
-    cache: "no-store",
+     cache: "no-store",
+ 
   })
 
   if (!res.ok) {
     throw new Error("Failed to update role")
   }
 
-  // 🔥 THIS is why reload is not needed
-  revalidateTag("orders")
+  updateTag("orders")
 }
 
-// actions/food.ts
+
 export async function createReviews(
   rating: number,
   comment: string,
-  mealId: string
+  id: string
 ) {
  const {data}=await userServices.getSession()
  const userId=data.user.id
-  const res = await fetch("http://localhost:5000/api/reviews", {
+ console.log("food",rating,id)
+  const res = await fetch(NEXT_PUBLIC_REVIEWS, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -99,7 +93,7 @@ export async function createReviews(
       rating,
       comment,
       userId,
-      mealId,
+      mealId:id,
     }),
     cache: "no-store",
   })
@@ -108,5 +102,35 @@ console.log(res)
     throw new Error("Failed to create review")
   }
 
-  return res.json() // ✅ return created review
+  return res.json() 
 }
+
+// type Form={
+//    title:string,
+//     description:string,
+//     price: number,
+//     categoryId:string
+// }
+
+// type CreateMealInput = {
+//   title: string
+//   description: string
+//   price: number
+//   categoryId: string
+// }
+
+// export async function findpProvider() {
+//   const { data } = await userServices.getSession()
+
+//   if (!data?.user?.id) {
+//     throw new Error("Unauthorized")
+//   }
+
+//   const provider = await blogServices.getproviderById(data.user.id)
+
+//   if (!provider) {
+//     redirect("/provider")
+//   }
+
+  
+// }

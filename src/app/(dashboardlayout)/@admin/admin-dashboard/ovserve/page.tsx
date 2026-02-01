@@ -1,7 +1,7 @@
-import OrderStatusDropdown from '@/components/dashboard/dropDownMenu'
+
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import { OrderStatus } from '@/types/order.type'
-import React from 'react'
+import { env } from '@/env'
+
 type Orders={
   id:string
   customerId:string
@@ -11,10 +11,11 @@ type Orders={
 
 }
 
-
+const NEXT_PUBLIC_ORDER=env.NEXT_PUBLIC_ORDER
+// const BACKEND_URL=env.BACKEND_URL
 
 const OvservePage = async() => {
-  const res = await fetch("http://localhost:5000/api/orders", {
+  const res = await fetch(NEXT_PUBLIC_ORDER, {
     credentials: "include",
     cache: "no-store",
     next: {
@@ -25,7 +26,7 @@ const OvservePage = async() => {
   
 
   if (!res.ok) {
-    throw new Error("Failed to fetch orders")
+    throw new Error("Failed to fetch ovserve")
   }
 
   const orders = await res.json()
@@ -53,7 +54,7 @@ const OvservePage = async() => {
       <TableCell className="font-medium ">{order.customerId}</TableCell>
       <TableCell className="font-medium ">{order.status}</TableCell>
       <TableCell >{order.address}</TableCell>
-      <TableCell >{order.totalAmount}</TableCell>
+      <TableCell >TK{order.totalAmount}</TableCell>
      
      
      

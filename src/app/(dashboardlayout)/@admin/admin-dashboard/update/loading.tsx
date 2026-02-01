@@ -1,10 +1,9 @@
-import { Spinner } from "@/components/ui/spinner"
-
+import React from 'react'
 
 const Loading = () => {
   return (
     <div>
-      <Spinner></Spinner>
+      <h2>load..........</h2>
     </div>
   )
 }

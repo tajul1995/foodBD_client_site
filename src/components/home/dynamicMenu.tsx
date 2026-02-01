@@ -29,7 +29,7 @@ export  interface Meal {
     address:string
   }
 }
-
+// const BACKENDURL=env.BACKEND_URL
 const NEXT_PUBLIC_CATEGORY= env.NEXT_PUBLIC_CATEGORY
 const NEXT_PUBLIC_MEALS=env.NEXT_PUBLIC_MEALS
 export default function FoodMenuFunctional() {
@@ -75,7 +75,7 @@ export default function FoodMenuFunctional() {
     fetchCategories()
   }, [])
 
-  // Load meals for default category on mount
+  
   useEffect(() => {
     if (selectedCategoryId) {
       fetchMeals(selectedCategoryId)

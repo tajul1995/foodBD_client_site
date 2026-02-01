@@ -13,6 +13,9 @@ export const env = createEnv({
     NEXT_PUBLIC_MEALS: z.string().url(),
     NEXT_PUBLIC_CATEGORY: z.string().url(),
     NEXT_PUBLIC_ORDER: z.string().url(),
+    NEXT_PUBLIC_REVIEWS: z.string().url(),
+   NEXT_PUBLIC_USERS: z.string().url(),
+   NEXT_PUBLIC_PROVIDER: z.string().url(),
   },
   runtimeEnv: {
     BACKEND_URL: process.env.BACKEND_URL,
@@ -22,5 +25,8 @@ export const env = createEnv({
     NEXT_PUBLIC_MEALS: process.env.NEXT_PUBLIC_MEALS,
     NEXT_PUBLIC_CATEGORY: process.env.NEXT_PUBLIC_CATEGORY,
     NEXT_PUBLIC_ORDER: process.env.NEXT_PUBLIC_ORDER,
+    NEXT_PUBLIC_REVIEWS: process.env.NEXT_PUBLIC_REVIEWS,
+    NEXT_PUBLIC_USERS: process.env.NEXT_PUBLIC_USERS,
+    NEXT_PUBLIC_PROVIDER: process.env.NEXT_PUBLIC_PROVIDER,
   },
 })

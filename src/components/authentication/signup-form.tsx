@@ -23,19 +23,21 @@ import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+// import { env } from "@/env";
 
 const formSchema = z.object({
   name: z.string().min(1, "This field is required"),
   password: z.string().min(8, "Minimum length is 8"),
   email: z.email(),
 });
-
+// const FRONTEND_URL=env.FRONTEND_URL
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
    const router = useRouter();
   const handleGoogleLogin = async () => {
     const data = authClient.signIn.social({
       provider: "google",
-      callbackURL: "http://localhost:3000",
+      callbackURL:"http://localhost:3000",
     });
 
     console.log(data);
@@ -75,8 +77,8 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
   return (
     <Card {...props}>
       <CardHeader>
-        <CardTitle>Create an account</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-center font-bold italic text-amber-600">REGISTER ACCOUNT</CardTitle>
+        <CardDescription className="text-center font-bold italic text-amber-600">
           Enter your information below to create your account
         </CardDescription>
       </CardHeader>
@@ -162,6 +164,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         <Button form="login-form" type="submit" className="w-full">
           Register
         </Button>
+                    <h2 className="text-amber-500 "> have an account?<Link href={'/login'} >login</Link></h2>
         <Button
           onClick={() => handleGoogleLogin()}
           variant="outline"
@@ -170,6 +173,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
         >
           Continue with Google
         </Button>
+
       </CardFooter>
     </Card>
   );

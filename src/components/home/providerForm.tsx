@@ -1,3 +1,4 @@
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -25,12 +26,12 @@ import * as z from "zod";
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
-  email: z.string().email("Invalid email"),
+  email: z.email("Invalid email"),
   shopName: z.string().min(2, "Shop name is required"),
   address: z.string().min(5, "Address is required"),
-  phone: z.string().optional(),
+  // phone: z.string().optional(),
 });
-
+ 
 export function ProviderForm(props: React.ComponentProps<typeof Card>) {
   const session = authClient.useSession();
   const user = session.data?.user;
@@ -42,7 +43,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
       email: user?.email ?? "",
       shopName: "",
       address: "",
-      phone: "",
+      // phone: undefined,
     },
     validators: {
       onSubmit: formSchema,
@@ -52,7 +53,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
       try {
         console.log( value);
 
-        // TODO: API call here
+      
 
         toast.success("Provider created successfully", { id: toastId });
         router.push("/");
@@ -80,7 +81,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
           }}
         >
           <FieldGroup>
-            {/* Name */}
+           
             <form.Field name="name">
               {(field) => (
                 <Field>
@@ -90,7 +91,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
               )}
             </form.Field>
 
-            {/* Email */}
+            
             <form.Field name="email">
               {(field) => (
                 <Field>
@@ -100,7 +101,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
               )}
             </form.Field>
 
-            {/* Shop Name */}
+            
             <form.Field name="shopName">
               {(field) => (
                 <Field>
@@ -114,7 +115,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
               )}
             </form.Field>
 
-            {/* Address */}
+           
             <form.Field name="address">
               {(field) => (
                 <Field>
@@ -128,7 +129,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
               )}
             </form.Field>
 
-            {/* Phone */}
+         
             <form.Field name="phone">
               {(field) => (
                 <Field>

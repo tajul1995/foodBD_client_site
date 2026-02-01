@@ -1,8 +1,9 @@
-
+// "use client"
 
 import OrderStatusDropdown, { Role } from "@/components/dashboard/dropDownMenu";
 
 import { Table, TableBody,  TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { env } from "@/env";
 // import { OrderStatus } from "@/types/order.type";
 
 type Users={
@@ -18,8 +19,8 @@ type Users={
 
 
 }
-
-
+// const NEXT_PUBLIC_USERS=env.NEXT_PUBLIC_USERS
+//  const BACKEND_URL=env.BACKEND_URL
 export default async function UserPage() {
  const res = await fetch("http://localhost:5000/api/users", {
     credentials: "include",
@@ -32,7 +33,7 @@ export default async function UserPage() {
   
 
   if (!res.ok) {
-    throw new Error("Failed to fetch orders")
+    throw new Error("Failed to fetch users")
   }
 
   const orders = await res.json()
