@@ -3,7 +3,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { userServices } from "../services/user.services";
 import { redirect } from "next/navigation";
 
-
+export const dynamic = "force-dynamic";
 export default async function Layout({ admin,provider,customer }: { admin: React.ReactNode,provider: React.ReactNode,customer: React.ReactNode }) {
    const {data}= await userServices.getSession()
    console.log(data)

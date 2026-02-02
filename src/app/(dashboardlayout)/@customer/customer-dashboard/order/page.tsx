@@ -10,7 +10,7 @@ type Order={
 
 
 }
-
+export const dynamic = "force-dynamic";
 const OrderePage =async () => {
     const {data}= await blogServices.getorderById()
     console.log(data.data)

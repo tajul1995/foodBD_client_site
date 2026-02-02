@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { Button } from "@/components/ui/button";
@@ -29,7 +30,7 @@ const formSchema = z.object({
   email: z.email("Invalid email"),
   shopName: z.string().min(2, "Shop name is required"),
   address: z.string().min(5, "Address is required"),
-  // phone: z.string().optional(),
+   phone: z.string().min(12,"phone is number is required"),
 });
  
 export function ProviderForm(props: React.ComponentProps<typeof Card>) {
@@ -43,7 +44,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
       email: user?.email ?? "",
       shopName: "",
       address: "",
-      // phone: undefined,
+       phone: "",
     },
     validators: {
       onSubmit: formSchema,
@@ -66,8 +67,8 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
   return (
     <Card {...props}>
       <CardHeader>
-        <CardTitle>Create Provider</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-center font-bold italic text-amber-600">Create Provider</CardTitle>
+        <CardDescription className="text-center font-bold italic text-amber-600">
           Complete your shop information to continue
         </CardDescription>
       </CardHeader>
@@ -105,7 +106,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
             <form.Field name="shopName">
               {(field) => (
                 <Field>
-                  <FieldLabel>Shop Name *</FieldLabel>
+                  <FieldLabel>Shop Name *(required atleast 2 words)</FieldLabel>
                   <Input
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
@@ -119,7 +120,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
             <form.Field name="address">
               {(field) => (
                 <Field>
-                  <FieldLabel>Address *</FieldLabel>
+                  <FieldLabel>Address *(required atleast 5 words)</FieldLabel>
                   <Input
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}
@@ -133,7 +134,7 @@ export function ProviderForm(props: React.ComponentProps<typeof Card>) {
             <form.Field name="phone">
               {(field) => (
                 <Field>
-                  <FieldLabel>Phone (optional)</FieldLabel>
+                  <FieldLabel>Phone *(required atleast 12 number)</FieldLabel>
                   <Input
                     value={field.state.value}
                     onChange={(e) => field.handleChange(e.target.value)}

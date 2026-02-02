@@ -14,7 +14,7 @@ import { env } from "@/env"
     email:string
   }
 }
-
+export const dynamic = "force-dynamic";
 // const BACKEND_URL=env.BACKEND_URL
 const NEXT_PUBLIC_REVIEWS=env.NEXT_PUBLIC_REVIEWS
 const UpdatePage =async () => {

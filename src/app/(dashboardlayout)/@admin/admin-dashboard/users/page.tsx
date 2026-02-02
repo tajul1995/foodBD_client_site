@@ -19,6 +19,7 @@ type Users={
 
 
 }
+export const dynamic = "force-dynamic";
 // const NEXT_PUBLIC_USERS=env.NEXT_PUBLIC_USERS
 //  const BACKEND_URL=env.BACKEND_URL
 export default async function UserPage() {

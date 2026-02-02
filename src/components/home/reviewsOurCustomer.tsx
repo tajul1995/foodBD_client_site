@@ -32,7 +32,7 @@ export default function ReviewCarousel() {
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-14">
-   x
+   
       <div className="border-y-2 border-amber-500 mb-10">
         <h2 className="text-3xl font-extrabold text-amber-700 text-center italic py-4">
           Our Customer Reviews

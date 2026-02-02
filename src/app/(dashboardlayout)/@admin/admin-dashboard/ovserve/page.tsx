@@ -10,7 +10,7 @@ type Orders={
   totalAmount:string
 
 }
-
+ export const dynamic = "force-dynamic";
 const NEXT_PUBLIC_ORDER=env.NEXT_PUBLIC_ORDER
 // const BACKEND_URL=env.BACKEND_URL
 
